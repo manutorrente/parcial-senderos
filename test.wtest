@@ -1,0 +1,49 @@
+import example.*
+
+describe "general"{
+	const casaJim = new Lugar(id = 1)
+	const casaClara = new Lugar(id =2)
+	const mercadoTroll = new Lugar(id =3)
+	const museo = new Lugar(id =4)
+	
+	const sendero1 = new SenderoRural(destino = casaJim, distancia =40)
+	const sendero2 = new SenderoRural(destino = mercadoTroll, distancia=35)
+	const sendero3 = new SenderoRural(destino = casaClara, distancia = 15)
+	const sendero4 = new SenderoUrbano(destino = museo, distancia= 15, multiplicador = 2)
+	const sendero5 = new SenderoUrbano(destino = mercadoTroll, distancia=15, multiplicador = 4)
+	const sendero6 = new SenderoUrbano(destino = casaClara, distancia = 5)
+	const sendero7 = new SenderoUrbano(destino = casaJim, distancia = 5)
+	
+	
+	const aja = new Persona(velocidad = 12, lugar = museo, horas = 7)
+	const clara = new Persona(velocidad = 10, lugar = casaClara, horas =5)
+	
+	method initialize(){
+		casaJim.agregarSendero(sendero2)
+		casaJim.agregarSendero(sendero6)
+		casaClara.agregarSendero(sendero7)
+		casaClara.agregarSendero(sendero5)
+		mercadoTroll.agregarSendero(sendero3)
+		mercadoTroll.agregarSendero(sendero4)
+		museo.agregarSendero(sendero1)
+		
+	}
+	
+
+	
+	test "casaJim tiene dos senderos y uno es casaClara"{
+		assert.equals(2, casaJim.senderos().size())
+		assert.that(casaJim.senderos().any({sendero => sendero.destino()==casaClara}))
+		assert.equals([sendero6], jim.lugar().senderos().filter({sendero => sendero.destino().id()==casaClara.id()}))
+	}
+	
+	
+	test "jim puede moverse a la casa de clara"{
+		const jim = new PersonaVelocidadesDiferentes(velocidadCampo=9, velocidadCiudad=90, lugar = casaJim, horas = 7)
+		const irACasaClara = new IrA(destino = casaClara)
+		jim.realizarTarea(irACasaClara)
+		
+		assert.equals(casaClara, jim.lugar())
+		
+	}
+}

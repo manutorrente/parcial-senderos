@@ -1,0 +1,41 @@
+import example.*
+
+test "si tiene un sendero hasta casa jim, museo se conecta a casa jim"{
+	const museo = new Lugar()
+	const sendero1 = new Sendero(destino = museo, distancia = 40)
+	const casaJim = new Lugar(senderos=[sendero1])
+	
+	assert.that(casaJim.seConecta(museo))
+}
+
+test "la velocidad de Juan es de 90 en ciudad y 9 en campo, mientras que para aja es la misma (12)"{
+	const museo = new Lugar()
+	const jim = new PersonaVelocidadesDiferentes(velocidadCiudad=90, velocidadCampo=9, lugar=museo)
+	const aja = new Persona(velocidad=12, lugar=museo)
+	
+	assert.equals(90, jim.velocidadCiudad())
+	assert.equals(9, jim.velocidadCampo())
+	assert.equals(aja.velocidadCiudad(), aja.velocidadCampo())
+}
+
+test "si jim va por un sendero urbano con 2 de multiplicador y 15 de distancia, el tiempo es de dos horas"{
+	const museo = new Lugar()
+	const sendero1 = new SenderoUrbano(destino = museo, distancia = 15, multiplicador=2)
+	const casaJim = new Lugar(senderos=[sendero1])
+	const jim = new PersonaVelocidadesDiferentes(velocidadCiudad=90, velocidadCampo=9, lugar=casaJim)
+	
+	
+	assert.equals(2, jim.tiempoEnLlegar(museo))
+}
+
+test "si aja va por un camino rural de 15 km, tarda 2 horas"{
+	const museo = new Lugar()
+	const sendero1 = new SenderoRural(destino = museo, distancia = 15)
+	const casaJim = new Lugar(senderos=[sendero1])
+	
+	const aja = new Persona(velocidad=12, lugar = casaJim)
+	
+	assert.equals(2, aja.tiempoEnLlegar(museo))
+}
+
+
